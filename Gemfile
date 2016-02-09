@@ -17,14 +17,20 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+# gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'bootstrap-sass'
+
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+if Bundler::WINDOWS
+  gem 'bcrypt-ruby', '3.1.0', require: 'bcrypt'
+else
+  gem 'bcrypt', '~> 3.1.10', require: false
+end
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -44,3 +50,10 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+group :test do
+  gem "rspec"
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "database_cleaner"
+end
