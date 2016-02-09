@@ -13,4 +13,12 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  def correct_user
+    @user = User.find params[:id]
+
+    if not @user == current_user
+      redirect_to root_url
+    end
+  end
 end
