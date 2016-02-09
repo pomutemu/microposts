@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :microposts
   has_secure_password
 
   valid_email_pat = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
