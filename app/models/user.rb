@@ -44,4 +44,20 @@ class User < ActiveRecord::Base
   before_save do
     self.email = email.downcase
   end
+
+  def follow other_user
+    following_relationships.find_or_create_by followed_id: other_user.id
+  end
+
+  def unfollow other_user
+    following_relationship = following_relationships.find_by followed_id: other_user.id
+
+    if following_relationship
+      following_relationship.destroy
+    end
+  end
+
+  def following? other_user
+    following_users.include? other_user
+  end
 end
