@@ -34,6 +34,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def followings
+    @user = User.find params[:id]
+    @following_relationships = @user.following_relationships.order followed_id: :desc
+  end
+
+  def followers
+    @user = User.find params[:id]
+    @follower_relationships = @user.follower_relationships.order follower_id: :desc
+  end
+
   private
 
   def user_params
