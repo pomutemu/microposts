@@ -4,13 +4,11 @@
   </aside>
 
   <div class="col-md-8">
-    <h3>Followers (<%= @follower_relationships.size %>)</h3>
+    <h3>Followers (<%= @follower_users.size %>)</h3>
 
-    <% if @follower_relationships.any? %>
+    <% if @follower_users.any? %>
       <ol class="followers">
-        <% @follower_relationships.each do |f| %>
-          <%= render 'relationships/follower', follower: f.follower %>
-        <% end %>
+        <%= render @follower_users %>
       </ol>
     <% end %>
   </div>

@@ -1,10 +1,12 @@
 require "rails_helper"
 
 describe User do
+  subject do
+    build :user, opts
+  end
+
   context "with valid data" do
-    subject do
-      build :user
-    end
+    let (:opts) {{}}
 
     it "is valid" do
       is_expected.to be_valid
@@ -12,9 +14,7 @@ describe User do
   end
 
   context "with no name" do
-    subject do
-      build :user, name: ""
-    end
+    let (:opts) {{name: ""}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -22,9 +22,7 @@ describe User do
   end
 
   context "when name length is greater than 50" do
-    subject do
-      build :user, name: "n" * 51
-    end
+    let (:opts) {{name: "n" * 51}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -32,9 +30,7 @@ describe User do
   end
 
   context "with no email" do
-    subject do
-      build :user, email: ""
-    end
+    let (:opts) {{email: ""}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -42,9 +38,7 @@ describe User do
   end
 
   context "when email length is greater than 255" do
-    subject do
-      build :user, email: "e" * 256
-    end
+    let (:opts) {{email: "e" * 256}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -52,9 +46,7 @@ describe User do
   end
 
   context "with invalid email" do
-    subject do
-      build :user, email: "email.example.com"
-    end
+    let (:opts) {{email: "email.example.com"}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -62,9 +54,7 @@ describe User do
   end
 
   context "when location length is greater than 50" do
-    subject do
-      build :user, location: "l" * 51
-    end
+    let (:opts) {{location: "l" * 51}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -72,9 +62,7 @@ describe User do
   end
 
   context "when profile length is greater than 255" do
-    subject do
-      build :user, profile: "p" * 256
-    end
+    let (:opts) {{profile: "p" * 256}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -103,12 +91,12 @@ describe User do
   end
 
   context "with duplicated email" do
-    let (:email) {{email: "email@example.com"}}
-
     subject do
       -> do
-        create :user_alice, email
-        create :user_bob, email
+        email = "email@example.com"
+
+        create :user_alice, {email: email}
+        create :user_bob, {email: email}
       end
     end
 
@@ -118,13 +106,13 @@ describe User do
   end
 
   context "with duplicated email (case insensitive)" do
-    let (:email) {{email: "email@example.com"}}
-    let (:duplicated_email_case_insensitive) {{email: "EMAIL@example.com"}}
-
     subject do
       -> do
-        create :user_alice, email
-        create :user_bob, duplicated_email_case_insensitive
+        email = "email@example.com"
+        duplicated_email_case_insensitive = "EMAIL@example.com"
+
+        create :user_alice, {email: email}
+        create :user_bob, {email: duplicated_email_case_insensitive}
       end
     end
 

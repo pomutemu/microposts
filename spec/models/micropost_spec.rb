@@ -1,10 +1,12 @@
 require "rails_helper"
 
 describe Micropost do
+  subject do
+    build :micropost, opts
+  end
+
   context "with valid data" do
-    subject do
-      build :micropost
-    end
+    let (:opts) {{}}
 
     it "is valid" do
       is_expected.to be_valid
@@ -12,9 +14,7 @@ describe Micropost do
   end
 
   context "with no user_id" do
-    subject do
-      build :micropost, user_id: ""
-    end
+    let (:opts) {{user_id: ""}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -22,9 +22,7 @@ describe Micropost do
   end
 
   context "with no content" do
-    subject do
-      build :micropost, content: ""
-    end
+    let (:opts) {{content: ""}}
 
     it "is invalid" do
       is_expected.to be_invalid
@@ -32,9 +30,7 @@ describe Micropost do
   end
 
   context "when content length is greater than 140" do
-    subject do
-      build :micropost, content: "c" * 141
-    end
+    let (:opts) {{content: "c" * 141}}
 
     it "is invalid" do
       is_expected.to be_invalid
