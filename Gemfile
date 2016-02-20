@@ -25,6 +25,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bootstrap-sass'
 
+gem "kaminari"
+
 # Use ActiveModel has_secure_password
 if Bundler::WINDOWS
   gem 'bcrypt-ruby', '3.1.0', require: 'bcrypt'
